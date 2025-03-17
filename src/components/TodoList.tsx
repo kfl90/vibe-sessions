@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 import '../styles/TodoList.css';
 
 interface Todo {
@@ -8,9 +9,12 @@ interface Todo {
 }
 
 const TodoList = () => {
+  const { walletAddress } = useAuth();
+  const storageKey = `todos_${walletAddress || 'default'}`;
+  
   const [todos, setTodos] = useState<Todo[]>(() => {
     // Load todos from localStorage on initial render
-    const savedTodos = localStorage.getItem('todos');
+    const savedTodos = localStorage.getItem(storageKey);
     return savedTodos ? JSON.parse(savedTodos) : [];
   });
   
@@ -21,8 +25,14 @@ const TodoList = () => {
 
   // Save todos to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+    localStorage.setItem(storageKey, JSON.stringify(todos));
+  }, [todos, storageKey]);
+
+  // Update todos when wallet address changes
+  useEffect(() => {
+    const savedTodos = localStorage.getItem(storageKey);
+    setTodos(savedTodos ? JSON.parse(savedTodos) : []);
+  }, [storageKey]);
 
   const addTodo = () => {
     if (newTodo.trim()) {
