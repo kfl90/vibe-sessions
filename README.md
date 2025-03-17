@@ -12,6 +12,7 @@ A modern, clean todo list application built with React and TypeScript.
 - 🧹 Clear all completed tasks at once
 - 💾 Persistent storage using localStorage
 - 📱 Responsive design for all devices
+- 🔐 Web3 authentication with Privy
 
 ## Tech Stack
 
@@ -19,6 +20,8 @@ A modern, clean todo list application built with React and TypeScript.
 - TypeScript
 - Vite
 - CSS3
+- Privy Auth
+- Permissionless.js
 
 ## Getting Started
 
@@ -27,11 +30,28 @@ A modern, clean todo list application built with React and TypeScript.
 ```
 npm install
 ```
-3. Start the development server:
+3. Update the Privy App ID in `src/App.tsx`:
+```typescript
+// Replace with your actual Privy App ID
+const PRIVY_APP_ID = 'your-privy-app-id-here';
+```
+4. Start the development server:
 ```
 npm run dev
 ```
-4. Open your browser to the URL shown in the terminal
+5. Open your browser to the URL shown in the terminal
+
+## Setting Up Privy Authentication
+
+To enable the login functionality:
+
+1. Go to [Privy](https://privy.io/) and sign up for an account
+2. Create a new project
+3. Copy your App ID from the dashboard
+4. Replace the placeholder App ID in `src/App.tsx`
+5. Configure allowed domains in the Privy dashboard (add localhost for development)
+
+For more details, see the [Privy documentation](https://docs.privy.io/).
 
 ## Building for Production
 
