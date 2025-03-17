@@ -2,6 +2,8 @@
 
 A modern, clean todo list application built with React and TypeScript.
 
+> **Note:** This app was built by the roadman. Proper vibes only!
+
 ## Features
 
 - ✅ Add, edit, and delete tasks
