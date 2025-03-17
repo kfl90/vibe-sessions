@@ -4,6 +4,8 @@ A modern, clean todo list application built with React and TypeScript.
 
 > **Note:** This app was built by the roadman. Proper vibes only!
 
+**Live Demo:** [https://vibe-sessions.netlify.app](https://vibe-sessions.netlify.app) (Update this URL once you deploy your app)
+
 ## Features
 
 - ✅ Add, edit, and delete tasks
@@ -40,6 +42,15 @@ const PRIVY_APP_ID = 'your-privy-app-id-here';
 npm run dev
 ```
 5. Open your browser to the URL shown in the terminal
+
+## Deployment
+
+You can deploy this app to platforms like:
+- [Netlify](https://netlify.com)
+- [Vercel](https://vercel.com)
+- [GitHub Pages](https://pages.github.com)
+
+After deployment, update the live demo link at the top of this README.
 
 ## Setting Up Privy Authentication
 
