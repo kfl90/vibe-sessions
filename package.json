@@ -1,5 +1,5 @@
 {
-  "name": "whatever",
+  "name": "todo-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,12 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@privy-io/react-auth": "^2.6.2",
-    "@tanstack/react-query": "^5.68.0",
-    "permissionless": "^0.2.36",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "viem": "^2.23.11"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

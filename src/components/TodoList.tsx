@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
 import '../styles/TodoList.css';
 
 interface Todo {
@@ -8,31 +7,22 @@ interface Todo {
   completed: boolean;
 }
 
+const STORAGE_KEY = 'todos';
+
 const TodoList = () => {
-  const { walletAddress } = useAuth();
-  const storageKey = `todos_${walletAddress || 'default'}`;
-  
   const [todos, setTodos] = useState<Todo[]>(() => {
-    // Load todos from localStorage on initial render
-    const savedTodos = localStorage.getItem(storageKey);
+    const savedTodos = localStorage.getItem(STORAGE_KEY);
     return savedTodos ? JSON.parse(savedTodos) : [];
   });
-  
+
   const [newTodo, setNewTodo] = useState('');
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
   const [editingTodo, setEditingTodo] = useState<number | null>(null);
   const [editText, setEditText] = useState('');
 
-  // Save todos to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(todos));
-  }, [todos, storageKey]);
-
-  // Update todos when wallet address changes
-  useEffect(() => {
-    const savedTodos = localStorage.getItem(storageKey);
-    setTodos(savedTodos ? JSON.parse(savedTodos) : []);
-  }, [storageKey]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
 
   const addTodo = () => {
     if (newTodo.trim()) {
@@ -97,7 +87,7 @@ const TodoList = () => {
   return (
     <div className="todo-container">
       <h1>Todo List</h1>
-      
+
       <div className="todo-input">
         <input
           type="text"
@@ -108,29 +98,29 @@ const TodoList = () => {
         />
         <button onClick={addTodo}>Add</button>
       </div>
-      
+
       <div className="todo-filters">
-        <button 
-          className={filter === 'all' ? 'active' : ''} 
+        <button
+          className={filter === 'all' ? 'active' : ''}
           onClick={() => setFilter('all')}
         >
           All
         </button>
-        <button 
-          className={filter === 'active' ? 'active' : ''} 
+        <button
+          className={filter === 'active' ? 'active' : ''}
           onClick={() => setFilter('active')}
         >
           Active
         </button>
-        <button 
-          className={filter === 'completed' ? 'active' : ''} 
+        <button
+          className={filter === 'completed' ? 'active' : ''}
           onClick={() => setFilter('completed')}
         >
           Completed
         </button>
         <button onClick={clearCompleted}>Clear Completed</button>
       </div>
-      
+
       <ul className="todo-list">
         {filteredTodos.map(todo => (
           <li key={todo.id} className={todo.completed ? 'completed' : ''}>
@@ -158,19 +148,19 @@ const TodoList = () => {
                   checked={todo.completed}
                   onChange={() => toggleTodo(todo.id)}
                 />
-                <span 
+                <span
                   className="todo-text"
                   onDoubleClick={() => startEditing(todo.id, todo.text)}
                 >
                   {todo.text}
                 </span>
-                <button 
+                <button
                   className="edit-btn"
                   onClick={() => startEditing(todo.id, todo.text)}
                 >
                   ✎
                 </button>
-                <button 
+                <button
                   className="delete-btn"
                   onClick={() => deleteTodo(todo.id)}
                 >
@@ -181,7 +171,11 @@ const TodoList = () => {
           </li>
         ))}
       </ul>
-      
+
+      {todos.length === 0 && (
+        <p className="empty-state">No todos yet. Add one above!</p>
+      )}
+
       <div className="todo-footer">
         <span>{remaining} item{remaining !== 1 ? 's' : ''} left</span>
       </div>
@@ -189,4 +183,4 @@ const TodoList = () => {
   );
 };
 
-export default TodoList; 
+export default TodoList;
