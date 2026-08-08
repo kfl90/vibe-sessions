@@ -1,0 +1,71 @@
+/*
+ * Fallback hiding for known consent-management-platform containers.
+ * Injected at document_start so banners never paint, even while the
+ * auto-reject click is still in flight (or on sites where clicking fails).
+ *
+ * Deliberately NO bare [class*="cookie"] wildcards — false positives
+ * (recipe sites, docs about cookies) are worse than a missed banner.
+ */
+
+/* OneTrust */
+#onetrust-consent-sdk,
+#onetrust-banner-sdk,
+.onetrust-pc-dark-filter,
+
+/* Cookiebot */
+#CybotCookiebotDialog,
+#CybotCookiebotDialogBodyUnderlay,
+
+/* Quantcast Choice (TCF) */
+#qc-cmp2-container,
+.qc-cmp2-container,
+
+/* Didomi */
+#didomi-host,
+#didomi-notice,
+
+/* Sourcepoint */
+div[id^="sp_message_container_"],
+
+/* TrustArc */
+#truste-consent-track,
+.truste_overlay,
+.truste_box_overlay,
+
+/* Usercentrics */
+#usercentrics-root,
+#usercentrics-cmp-ui,
+
+/* Osano */
+.osano-cm-window,
+
+/* CookieYes */
+.cky-consent-container,
+.cky-overlay,
+
+/* Complianz */
+#cmplz-cookiebanner-container,
+
+/* Borlabs */
+#BorlabsCookieBox,
+#BorlabsCookieWidget,
+
+/* tarteaucitron */
+#tarteaucitronRoot,
+#tarteaucitronAlertBig,
+
+/* Google Funding Choices */
+.fc-consent-root,
+.fc-dialog-overlay,
+
+/* Low-risk generic banners */
+#cookie-law-info-bar,
+.cc-window.cc-banner,
+#cookie-notice.cookie-notice-container,
+#cookieConsentBanner,
+#gdpr-cookie-message {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

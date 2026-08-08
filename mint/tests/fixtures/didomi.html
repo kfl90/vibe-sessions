@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Didomi fixture</title>
+  <script src="common.js"></script>
+  <style>
+    body.didomi-popup-open { overflow: hidden; }
+    #didomi-host { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 2px solid #333; z-index: 9999; padding: 20px; }
+  </style>
+</head>
+<body class="didomi-popup-open">
+  <h1>Site content</h1>
+  <div id="didomi-host">
+    <div id="didomi-notice">
+      <p>With your agreement, we and our partners use cookies…</p>
+      <button id="didomi-notice-agree-button">Agree &amp; close</button>
+      <button id="didomi-notice-disagree-button">Disagree &amp; close</button>
+    </div>
+  </div>
+  <script>
+    document.getElementById('didomi-notice-agree-button').addEventListener('click', () => record('accepted'));
+    document.getElementById('didomi-notice-disagree-button').addEventListener('click', () => {
+      record('rejected');
+      document.getElementById('didomi-host').remove();
+      document.body.classList.remove('didomi-popup-open');
+    });
+  </script>
+</body>
+</html>

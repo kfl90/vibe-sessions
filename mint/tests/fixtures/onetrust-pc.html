@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>OneTrust preference-center fixture (no reject-all on banner)</title>
+  <script src="common.js"></script>
+  <style>
+    #onetrust-banner-sdk { position: fixed; bottom: 0; left: 0; right: 0; background: #eee; z-index: 9999; padding: 20px; }
+    #onetrust-pc-sdk { position: fixed; inset: 10% 20%; background: #fff; border: 1px solid #999; z-index: 10000; padding: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Site content</h1>
+  <div id="onetrust-consent-sdk">
+    <div id="onetrust-banner-sdk">
+      <p>We value your privacy</p>
+      <button id="onetrust-accept-btn-handler">Accept All Cookies</button>
+      <button id="onetrust-pc-btn-handler">Cookies Settings</button>
+    </div>
+  </div>
+  <script>
+    document.getElementById('onetrust-accept-btn-handler').addEventListener('click', () => record('accepted'));
+    document.getElementById('onetrust-pc-btn-handler').addEventListener('click', () => {
+      // Simulates the preference center opening after a short delay.
+      setTimeout(() => {
+        const pc = document.createElement('div');
+        pc.id = 'onetrust-pc-sdk';
+        pc.innerHTML = '<h2>Privacy Preference Center</h2>' +
+          '<button class="ot-pc-refuse-all-handler">Reject All</button>' +
+          '<button class="save-preference-btn-handler">Confirm My Choices</button>';
+        document.getElementById('onetrust-consent-sdk').appendChild(pc);
+        pc.querySelector('.ot-pc-refuse-all-handler').addEventListener('click', () => {
+          record('rejected');
+          document.getElementById('onetrust-consent-sdk').remove();
+        });
+        pc.querySelector('.save-preference-btn-handler').addEventListener('click', () => record('saved'));
+      }, 300);
+    });
+  </script>
+</body>
+</html>

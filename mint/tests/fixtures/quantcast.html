@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Quantcast Choice two-step fixture</title>
+  <script src="common.js"></script>
+  <style>
+    #qc-cmp2-container { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 9999; }
+    .qc-cmp2-summary-buttons, .qc-cmp2-footer { background: #fff; padding: 20px; margin: 15% auto; width: 60%; }
+  </style>
+</head>
+<body>
+  <h1>Site content</h1>
+  <div id="qc-cmp2-container">
+    <div class="qc-cmp2-container">
+      <div class="qc-cmp2-summary-buttons">
+        <p>We and our partners process data…</p>
+        <button mode="secondary" id="qc-more">MORE OPTIONS</button>
+        <button mode="primary" id="qc-agree">AGREE</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('qc-agree').addEventListener('click', () => record('accepted'));
+    document.getElementById('qc-more').addEventListener('click', () => {
+      // Second screen renders after a delay, as the real CMP does.
+      setTimeout(() => {
+        const inner = document.querySelector('.qc-cmp2-container');
+        inner.innerHTML = '<div class="qc-cmp2-footer">' +
+          '<button mode="secondary" id="qc-reject">REJECT ALL</button>' +
+          '<button mode="primary" id="qc-save">SAVE &amp; EXIT</button></div>';
+        document.getElementById('qc-reject').addEventListener('click', () => {
+          record('rejected');
+          document.getElementById('qc-cmp2-container').remove();
+        });
+        document.getElementById('qc-save').addEventListener('click', () => record('saved'));
+      }, 400);
+    });
+  </script>
+</body>
+</html>

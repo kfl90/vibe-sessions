@@ -1,4 +1,15 @@
-# React Todo App
+# mint
+
+This repo holds two unrelated projects:
+
+- **[`mint/`](mint/)** — Mint, a Safari extension suite for iPhone: auto-rejects cookie
+  consent pop-ups and blocks ads, trackers, and annoyances. See
+  [`mint/README.md`](mint/README.md) to build it.
+- **the React todo app at the repo root** — the repo's original contents, documented below.
+
+---
+
+## React Todo App
 
 A modern, clean todo list application built with React and TypeScript.
 

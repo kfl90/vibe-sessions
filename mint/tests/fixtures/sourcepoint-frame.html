@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SP message</title>
+  <script src="common.js"></script>
+</head>
+<body>
+  <div class="message-container">
+    <p>We and our partners store and access information on your device…</p>
+    <button class="sp_choice_type_11" title="Accept">Accept</button>
+    <button class="sp_choice_type_13" title="Reject All">Reject All</button>
+  </div>
+  <script>
+    document.querySelector('.sp_choice_type_11').addEventListener('click', () => record('accepted'));
+    document.querySelector('.sp_choice_type_13').addEventListener('click', () => {
+      record('rejected');
+      document.querySelector('.message-container').innerHTML = '<p>Choice saved.</p>';
+    });
+  </script>
+</body>
+</html>

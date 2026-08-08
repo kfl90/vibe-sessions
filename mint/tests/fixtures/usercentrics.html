@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Usercentrics fixture (open shadow root)</title>
+  <script src="common.js"></script>
+</head>
+<body>
+  <h1>Site content</h1>
+  <script>
+    // Usercentrics mounts its whole UI inside an open shadow root.
+    const host = document.createElement('div');
+    host.id = 'usercentrics-root';
+    document.body.appendChild(host);
+    const root = host.attachShadow({ mode: 'open' });
+    root.innerHTML =
+      '<div style="position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ccc;padding:20px;z-index:9999">' +
+      '<p>We use cookies…</p>' +
+      '<button data-testid="uc-accept-all-button">Accept All</button>' +
+      '<button data-testid="uc-deny-all-button">Deny</button>' +
+      '</div>';
+    root.querySelector('[data-testid="uc-accept-all-button"]').addEventListener('click', () => record('accepted'));
+    root.querySelector('[data-testid="uc-deny-all-button"]').addEventListener('click', () => {
+      record('rejected');
+      host.remove();
+    });
+  </script>
+</body>
+</html>
