@@ -2,7 +2,7 @@
 
 # Variables
 GITHUB_USERNAME="$1"
-REPO_NAME="vibe-sessions"
+REPO_NAME="mint"
 
 if [ -z "$GITHUB_USERNAME" ]; then
   echo "Please provide your GitHub username as the first argument"

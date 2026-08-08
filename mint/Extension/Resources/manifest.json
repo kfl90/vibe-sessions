@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Cookie Banner Blocker",
+  "name": "Mint – Cookie Banners",
   "version": "1.0",
   "description": "Auto-rejects cookie consent pop-ups and hides leftover banners.",
   "icons": {

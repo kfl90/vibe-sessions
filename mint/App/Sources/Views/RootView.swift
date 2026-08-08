@@ -60,7 +60,7 @@ struct RootView: View {
                     }
                 }
             }
-            .navigationTitle("Cookie Blocker")
+            .navigationTitle("Mint")
             .overlay(alignment: .bottom) {
                 if status.isReloading {
                     ProgressView("Reloading blockers…")

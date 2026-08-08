@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct CookieBlockerApp: App {
+struct MintApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()

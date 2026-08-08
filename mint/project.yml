@@ -1,5 +1,5 @@
-# XcodeGen spec — generates CookieBlocker.xcodeproj on the Mac:
-#   brew install xcodegen && xcodegen generate && open CookieBlocker.xcodeproj
+# XcodeGen spec — generates Mint.xcodeproj on the Mac:
+#   brew install xcodegen && xcodegen generate && open Mint.xcodeproj
 #
 # Five targets: the app, the cookie-banner web extension, and three content
 # blockers. All Info.plist and .entitlements files are generated from the
@@ -7,7 +7,7 @@
 #
 # If the App Group ID is taken on your Apple ID, change it here (all five
 # occurrences) AND in Shared/SharedStore.swift.
-name: CookieBlocker
+name: Mint
 options:
   bundleIdPrefix: wtf.rhinestone
   deploymentTarget:
@@ -22,7 +22,7 @@ settings:
     # Set your team in Xcode: Signing & Capabilities → Team (free Apple ID works).
 
 targets:
-  CookieBlocker:
+  Mint:
     type: application
     platform: iOS
     sources:
@@ -31,12 +31,12 @@ targets:
       - App/Assets.xcassets
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.cookieblocker
+        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.mint
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     info:
       path: App/Info.plist
       properties:
-        CFBundleDisplayName: Cookie Blocker
+        CFBundleDisplayName: Mint
         UILaunchScreen: {}
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
@@ -45,18 +45,18 @@ targets:
       path: App/App.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.wtf.rhinestone.cookieblocker
+          - group.wtf.rhinestone.mint
     dependencies:
-      - target: CookieBannerExtension
+      - target: MintCookieBanner
         embed: true
-      - target: BlockerAds
+      - target: MintAds
         embed: true
-      - target: BlockerTrackers
+      - target: MintTrackers
         embed: true
-      - target: BlockerAnnoyances
+      - target: MintAnnoyances
         embed: true
 
-  CookieBannerExtension:
+  MintCookieBanner:
     type: app-extension
     platform: iOS
     sources:
@@ -73,12 +73,12 @@ targets:
         buildPhase: resources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.cookieblocker.extension
+        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.mint.extension
         SKIP_INSTALL: true
     info:
       path: Extension/Info.plist
       properties:
-        CFBundleDisplayName: Cookie Banner Blocker
+        CFBundleDisplayName: "Mint – Cookie Banners"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.Safari.web-extension
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).SafariWebExtensionHandler
@@ -86,9 +86,9 @@ targets:
       path: Extension/Extension.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.wtf.rhinestone.cookieblocker
+          - group.wtf.rhinestone.mint
 
-  BlockerAds:
+  MintAds:
     type: app-extension
     platform: iOS
     sources:
@@ -98,12 +98,12 @@ targets:
         buildPhase: resources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.cookieblocker.ads
+        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.mint.ads
         SKIP_INSTALL: true
     info:
       path: Blockers/Ads/Info.plist
       properties:
-        CFBundleDisplayName: "Cookie Blocker – Ads"
+        CFBundleDisplayName: "Mint – Ads"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.content-blocker
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ContentBlockerRequestHandler
@@ -111,9 +111,9 @@ targets:
       path: Blockers/Ads/Ads.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.wtf.rhinestone.cookieblocker
+          - group.wtf.rhinestone.mint
 
-  BlockerTrackers:
+  MintTrackers:
     type: app-extension
     platform: iOS
     sources:
@@ -123,12 +123,12 @@ targets:
         buildPhase: resources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.cookieblocker.trackers
+        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.mint.trackers
         SKIP_INSTALL: true
     info:
       path: Blockers/Trackers/Info.plist
       properties:
-        CFBundleDisplayName: "Cookie Blocker – Trackers"
+        CFBundleDisplayName: "Mint – Trackers"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.content-blocker
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ContentBlockerRequestHandler
@@ -136,9 +136,9 @@ targets:
       path: Blockers/Trackers/Trackers.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.wtf.rhinestone.cookieblocker
+          - group.wtf.rhinestone.mint
 
-  BlockerAnnoyances:
+  MintAnnoyances:
     type: app-extension
     platform: iOS
     sources:
@@ -148,12 +148,12 @@ targets:
         buildPhase: resources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.cookieblocker.annoyances
+        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.mint.annoyances
         SKIP_INSTALL: true
     info:
       path: Blockers/Annoyances/Info.plist
       properties:
-        CFBundleDisplayName: "Cookie Blocker – Annoyances"
+        CFBundleDisplayName: "Mint – Annoyances"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.content-blocker
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ContentBlockerRequestHandler
@@ -161,4 +161,4 @@ targets:
       path: Blockers/Annoyances/Annoyances.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.wtf.rhinestone.cookieblocker
+          - group.wtf.rhinestone.mint

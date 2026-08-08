@@ -3,9 +3,9 @@ import Foundation
 /// The three content-blocker extensions. Raw values must match the
 /// PRODUCT_BUNDLE_IDENTIFIER of each blocker target in project.yml.
 enum BlockerID: String, CaseIterable, Identifiable {
-    case ads = "wtf.rhinestone.cookieblocker.ads"
-    case trackers = "wtf.rhinestone.cookieblocker.trackers"
-    case annoyances = "wtf.rhinestone.cookieblocker.annoyances"
+    case ads = "wtf.rhinestone.mint.ads"
+    case trackers = "wtf.rhinestone.mint.trackers"
+    case annoyances = "wtf.rhinestone.mint.annoyances"
 
     var id: String { rawValue }
 

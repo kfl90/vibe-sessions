@@ -1,8 +1,8 @@
-# Cookie Blocker for Safari on iOS
+# Mint — cookie-banner, ad and tracker blocking for Safari on iOS
 
 An iPhone app that plugs into Safari and cleans up the web, 1Blocker/Super-Agent style:
 
-- **Cookie Banner Auto-Reject** (Safari Web Extension) — detects the major consent platforms (OneTrust, Cookiebot, Quantcast, Didomi, Sourcepoint, TrustArc, Usercentrics, and ~10 more), clicks **"Reject All"** for you so your choice is actually saved, and CSS-hides anything left over. Unknown banners get a conservative multilingual text-matching heuristic.
+- **Cookie-banner auto-reject** (Safari Web Extension) — detects the major consent platforms (OneTrust, Cookiebot, Quantcast, Didomi, Sourcepoint, TrustArc, Usercentrics, and ~10 more), clicks **"Reject All"** for you so your choice is actually saved, and CSS-hides anything left over. Unknown banners get a conservative multilingual text-matching heuristic.
 - **Ads** (Content Blocker) — EasyList, ~72k compiled rules.
 - **Trackers** (Content Blocker) — EasyPrivacy, ~55k compiled rules.
 - **Annoyances** (Content Blocker) — Fanboy's Annoyance List (includes the cookie list), ~21k compiled rules.
@@ -22,9 +22,9 @@ App Store → search **Xcode** → install (large download). Launch it once and 
 
 ```bash
 brew install xcodegen
-cd safari-cookie-blocker
+cd mint
 xcodegen generate
-open CookieBlocker.xcodeproj
+open Mint.xcodeproj
 ```
 
 (No Homebrew? Install from [brew.sh](https://brew.sh) first.)
@@ -32,9 +32,9 @@ open CookieBlocker.xcodeproj
 ### 3. Signing
 
 1. Xcode → **Settings → Accounts** → **+** → add your Apple ID (a "Personal Team" appears).
-2. Select the **CookieBlocker** project in the sidebar, then for **each of the five targets** (CookieBlocker, CookieBannerExtension, BlockerAds, BlockerTrackers, BlockerAnnoyances): **Signing & Capabilities** → check **Automatically manage signing** → pick your Team.
+2. Select the **Mint** project in the sidebar, then for **each of the five targets** (Mint, MintCookieBanner, MintAds, MintTrackers, MintAnnoyances): **Signing & Capabilities** → check **Automatically manage signing** → pick your Team.
 3. If Xcode complains a bundle ID is taken, change the prefix (`wtf.rhinestone`) to something of yours on **all five targets**, keeping the suffix relationships (`.extension`, `.ads`, `.trackers`, `.annoyances`) intact.
-4. If the **App Group** fails to register (group IDs are claimed globally), rename `group.wtf.rhinestone.cookieblocker` in **project.yml** (all five occurrences) and in **Shared/SharedStore.swift**, then run `xcodegen generate` again.
+4. If the **App Group** fails to register (group IDs are claimed globally), rename `group.wtf.rhinestone.mint` in **project.yml** (all five occurrences) and in **Shared/SharedStore.swift**, then run `xcodegen generate` again.
 
 ### 4. Run on your iPhone
 
@@ -48,8 +48,8 @@ open CookieBlocker.xcodeproj
 ### 5. Enable the extensions in iOS
 
 1. **Settings → Apps → Safari → Extensions** (iOS 18+) or **Settings → Safari → Extensions** (iOS 16–17).
-2. Turn on all four: **Ads**, **Trackers**, **Annoyances**, **Cookie Banner Blocker**.
-3. Tap **Cookie Banner Blocker** → **Permissions** → **All Websites → Allow** (this is what lets the auto-reject script run everywhere; Safari may also show a "Review" banner the first time it runs — allow it).
+2. Turn on all four: **Mint – Ads**, **Mint – Trackers**, **Mint – Annoyances**, **Mint – Cookie Banners**.
+3. Tap **Mint – Cookie Banners** → **Permissions** → **All Websites → Allow** (this is what lets the auto-reject script run everywhere; Safari may also show a "Review" banner the first time it runs — allow it).
 4. Reload any open tabs. Done.
 
 The app's **Setup Guide** screen walks through the same steps on-device.
@@ -65,7 +65,7 @@ The app's **Setup Guide** screen walks through the same steps on-device.
 The compiled lists are checked into the repo so the Mac build needs nothing but XcodeGen. To pull the latest upstream lists (needs Node ≥ 18):
 
 ```bash
-cd safari-cookie-blocker/tools
+cd mint/tools
 node update-lists.mjs          # fetch → convert → validate → write
 node spot-check.mjs            # sanity-check known-blocked/known-clean URLs
 node test-merge.mjs            # verify the allowlist merge invariant
@@ -80,17 +80,21 @@ Review the printed stats and the git diff, commit, then rebuild the app (an inst
 The web extension is a self-contained MV3 folder (`Extension/Resources/`) that loads unchanged in Chromium:
 
 ```bash
-cd safari-cookie-blocker/tests
+cd mint/tests
 npm install
 npm test        # 12 fixture tests: real CMP DOM skeletons, iframe + shadow-DOM cases,
                 # late injection, heuristic accept-trap test, scroll-lock cleanup, negative test
 ```
 
-The converter/validator toolchain has its own tests:
+The converter/validator toolchain and the cross-file consistency checks have their own tests:
 
 ```bash
-cd safari-cookie-blocker/tools
-node test-converter.mjs
+cd mint/tools
+node lint-project.mjs      # bundle IDs, App Group, and resource paths agree across
+                           # project.yml, the Swift, and manifest.json
+node test-converter.mjs    # ABP → Safari conversion
+node test-merge.mjs        # allowlist merge invariant against the real lists
+node spot-check.mjs        # sample URLs blocked / left alone as expected
 ```
 
 **What can only be verified on-device:** Safari's actual consumption of the content-blocker JSON (Chromium uses a different rule format), extension embedding, and the Settings flow. Quick on-device checks: [d3ward's adblock test](https://d3ward.github.io/toolz/adblock.html) for the blockers; any EU news site for the cookie extension.

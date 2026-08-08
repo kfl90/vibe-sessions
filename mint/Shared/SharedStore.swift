@@ -6,7 +6,7 @@ import Foundation
 /// group fails on your Apple ID (IDs are claimed globally), change it in both
 /// places, keeping the "group." prefix.
 public enum SharedStore {
-    public static let appGroupID = "group.wtf.rhinestone.cookieblocker"
+    public static let appGroupID = "group.wtf.rhinestone.mint"
 
     static let allowlistKey = "allowlistedDomains"
     static func enabledKey(_ category: String) -> String { "enabled.\(category)" }

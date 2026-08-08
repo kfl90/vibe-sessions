@@ -7,9 +7,9 @@ struct SetupGuideView: View {
                 step(1, "Open Settings",
                      "On iOS 18+: Settings → Apps → Safari → Extensions. On iOS 16–17: Settings → Safari → Extensions.")
                 step(2, "Turn on all four extensions",
-                     "Ads, Trackers, Annoyances, and Cookie Banner Blocker each have their own switch.")
+                     "Mint – Ads, Trackers, Annoyances, and Cookie Banners each have their own switch.")
                 step(3, "Allow the cookie extension everywhere",
-                     "Tap Cookie Banner Blocker → under Permissions choose All Websites → Allow. The three blockers don't need this step.")
+                     "Tap Mint – Cookie Banners → under Permissions choose All Websites → Allow. The three blockers don't need this step.")
                 step(4, "Browse",
                      "Cookie pop-ups get rejected automatically; ads and trackers are blocked. Reload any tabs that were already open.")
             }
