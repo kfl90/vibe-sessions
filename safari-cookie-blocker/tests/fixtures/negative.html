@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Negative fixture — nothing here should be clicked</title>
+  <script src="common.js"></script>
+</head>
+<body>
+  <h1>Change request review</h1>
+  <article>
+    <p>Please review the proposal below and choose an action.</p>
+    <!-- A normal in-content "Reject" button: NOT a cookie banner. -->
+    <button id="approve" onclick="record('accepted')">Approve</button>
+    <button id="reject" onclick="record('rejected')">Reject</button>
+  </article>
+  <p>Also discussing cookies as food: chocolate chip cookie recipes below.</p>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html class="ot-overflow-hidden">
+<head>
+  <meta charset="utf-8">
+  <title>OneTrust fixture</title>
+  <script src="common.js"></script>
+  <style>
+    html.ot-overflow-hidden { overflow: hidden; }
+    #onetrust-banner-sdk { position: fixed; bottom: 0; left: 0; right: 0; background: #eee; z-index: 9999; padding: 20px; }
+    .onetrust-pc-dark-filter { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 9998; }
+  </style>
+</head>
+<body>
+  <h1>Site content</h1>
+  <div id="onetrust-consent-sdk">
+    <div class="onetrust-pc-dark-filter"></div>
+    <div id="onetrust-banner-sdk">
+      <p>We value your privacy</p>
+      <button id="onetrust-accept-btn-handler">Accept All Cookies</button>
+      <button id="onetrust-reject-all-handler">Reject All</button>
+    </div>
+  </div>
+  <script>
+    document.getElementById('onetrust-accept-btn-handler').addEventListener('click', () => record('accepted'));
+    document.getElementById('onetrust-reject-all-handler').addEventListener('click', () => {
+      record('rejected');
+      document.getElementById('onetrust-consent-sdk').remove();
+      document.documentElement.classList.remove('ot-overflow-hidden');
+    });
+  </script>
+</body>
+</html>

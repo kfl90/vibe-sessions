@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Cookie Banner Blocker",
+  "version": "1.0",
+  "description": "Auto-rejects cookie consent pop-ups and hides leftover banners.",
+  "icons": {
+    "48": "images/icon-48.png",
+    "96": "images/icon-96.png",
+    "128": "images/icon-128.png",
+    "256": "images/icon-256.png",
+    "512": "images/icon-512.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_start",
+      "css": ["content/hide.css"],
+      "js": ["content/rules.js", "content/autoconsent.js"]
+    }
+  ]
+}

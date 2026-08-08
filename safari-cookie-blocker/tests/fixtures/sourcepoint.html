@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html class="sp-message-open">
+<head>
+  <meta charset="utf-8">
+  <title>Sourcepoint fixture (banner in iframe)</title>
+  <script src="common.js"></script>
+  <style>
+    html.sp-message-open { overflow: hidden; }
+    #sp_message_container_1234 { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 9999; }
+    #sp_message_container_1234 iframe { display: block; width: 60%; height: 300px; margin: 10% auto; background: #fff; border: 0; }
+  </style>
+</head>
+<body>
+  <h1>Site content</h1>
+  <div id="sp_message_container_1234">
+    <iframe id="sp_message_iframe_1234" src="sourcepoint-frame.html"></iframe>
+  </div>
+</body>
+</html>

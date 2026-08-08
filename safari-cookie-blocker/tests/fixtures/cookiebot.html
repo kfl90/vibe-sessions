@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cookiebot fixture</title>
+  <script src="common.js"></script>
+  <style>
+    #CybotCookiebotDialog { position: fixed; top: 20%; left: 25%; width: 50%; background: #fff; border: 1px solid #333; z-index: 9999; padding: 16px; }
+    #CybotCookiebotDialogBodyUnderlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 9998; }
+  </style>
+</head>
+<body>
+  <h1>Site content</h1>
+  <div id="CybotCookiebotDialogBodyUnderlay"></div>
+  <div id="CybotCookiebotDialog">
+    <p>This website uses cookies</p>
+    <button id="CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll">Allow all</button>
+    <button id="CybotCookiebotDialogBodyButtonDecline">Deny</button>
+  </div>
+  <script>
+    document.getElementById('CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll')
+      .addEventListener('click', () => record('accepted'));
+    document.getElementById('CybotCookiebotDialogBodyButtonDecline')
+      .addEventListener('click', () => {
+        record('rejected');
+        document.getElementById('CybotCookiebotDialog').remove();
+        document.getElementById('CybotCookiebotDialogBodyUnderlay').remove();
+      });
+  </script>
+</body>
+</html>

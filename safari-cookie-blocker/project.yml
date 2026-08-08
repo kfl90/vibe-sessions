@@ -1,0 +1,164 @@
+# XcodeGen spec — generates CookieBlocker.xcodeproj on the Mac:
+#   brew install xcodegen && xcodegen generate && open CookieBlocker.xcodeproj
+#
+# Five targets: the app, the cookie-banner web extension, and three content
+# blockers. All Info.plist and .entitlements files are generated from the
+# `info:` / `entitlements:` blocks below at `xcodegen generate` time.
+#
+# If the App Group ID is taken on your Apple ID, change it here (all five
+# occurrences) AND in Shared/SharedStore.swift.
+name: CookieBlocker
+options:
+  bundleIdPrefix: wtf.rhinestone
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    TARGETED_DEVICE_FAMILY: "1"
+    CODE_SIGN_STYLE: Automatic
+    # Set your team in Xcode: Signing & Capabilities → Team (free Apple ID works).
+
+targets:
+  CookieBlocker:
+    type: application
+    platform: iOS
+    sources:
+      - App/Sources
+      - Shared
+      - App/Assets.xcassets
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.cookieblocker
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: Cookie Blocker
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        ITSAppUsesNonExemptEncryption: false
+    entitlements:
+      path: App/App.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.wtf.rhinestone.cookieblocker
+    dependencies:
+      - target: CookieBannerExtension
+        embed: true
+      - target: BlockerAds
+        embed: true
+      - target: BlockerTrackers
+        embed: true
+      - target: BlockerAnnoyances
+        embed: true
+
+  CookieBannerExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - Extension/Sources
+      # manifest.json must sit at the appex bundle root; content/ and images/
+      # go in as folder references so bundle paths match the manifest.
+      - path: Extension/Resources/manifest.json
+        buildPhase: resources
+      - path: Extension/Resources/content
+        type: folder
+        buildPhase: resources
+      - path: Extension/Resources/images
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.cookieblocker.extension
+        SKIP_INSTALL: true
+    info:
+      path: Extension/Info.plist
+      properties:
+        CFBundleDisplayName: Cookie Banner Blocker
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.Safari.web-extension
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).SafariWebExtensionHandler
+    entitlements:
+      path: Extension/Extension.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.wtf.rhinestone.cookieblocker
+
+  BlockerAds:
+    type: app-extension
+    platform: iOS
+    sources:
+      - Blockers/Handler
+      - Shared
+      - path: Blockers/Ads/Resources/blockerList.json
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.cookieblocker.ads
+        SKIP_INSTALL: true
+    info:
+      path: Blockers/Ads/Info.plist
+      properties:
+        CFBundleDisplayName: "Cookie Blocker – Ads"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.content-blocker
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ContentBlockerRequestHandler
+    entitlements:
+      path: Blockers/Ads/Ads.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.wtf.rhinestone.cookieblocker
+
+  BlockerTrackers:
+    type: app-extension
+    platform: iOS
+    sources:
+      - Blockers/Handler
+      - Shared
+      - path: Blockers/Trackers/Resources/blockerList.json
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.cookieblocker.trackers
+        SKIP_INSTALL: true
+    info:
+      path: Blockers/Trackers/Info.plist
+      properties:
+        CFBundleDisplayName: "Cookie Blocker – Trackers"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.content-blocker
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ContentBlockerRequestHandler
+    entitlements:
+      path: Blockers/Trackers/Trackers.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.wtf.rhinestone.cookieblocker
+
+  BlockerAnnoyances:
+    type: app-extension
+    platform: iOS
+    sources:
+      - Blockers/Handler
+      - Shared
+      - path: Blockers/Annoyances/Resources/blockerList.json
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: wtf.rhinestone.cookieblocker.annoyances
+        SKIP_INSTALL: true
+    info:
+      path: Blockers/Annoyances/Info.plist
+      properties:
+        CFBundleDisplayName: "Cookie Blocker – Annoyances"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.content-blocker
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ContentBlockerRequestHandler
+    entitlements:
+      path: Blockers/Annoyances/Annoyances.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.wtf.rhinestone.cookieblocker

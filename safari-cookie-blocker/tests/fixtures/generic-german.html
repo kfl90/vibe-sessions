@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Unknown-CMP German banner (heuristic fixture)</title>
+  <script src="common.js"></script>
+  <style>
+    .cookie-hinweis { position: fixed; bottom: 0; left: 0; right: 0; background: #ffe; border-top: 2px solid #cc0; z-index: 999; padding: 18px; }
+  </style>
+</head>
+<body>
+  <h1>Website-Inhalt</h1>
+  <div class="cookie-hinweis">
+    <p>Wir verwenden Cookies, um unsere Website zu verbessern.</p>
+    <button id="g-accept">Alle akzeptieren</button>
+    <button id="g-reject">Alle ablehnen</button>
+  </div>
+  <script>
+    document.getElementById('g-accept').addEventListener('click', () => record('accepted'));
+    document.getElementById('g-reject').addEventListener('click', () => {
+      record('rejected');
+      document.querySelector('.cookie-hinweis').remove();
+    });
+  </script>
+</body>
+</html>

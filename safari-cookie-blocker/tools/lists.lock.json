@@ -1,0 +1,35 @@
+{
+  "updated": "2026-08-08T08:53:06.163Z",
+  "sources": {
+    "ads": {
+      "name": "EasyList",
+      "url": "https://easylist.to/easylist/easylist.txt",
+      "fetchedFrom": "https://raw.githubusercontent.com/easylist/easylist/gh-pages/easylist.txt",
+      "fetchedAt": "2026-08-08T08:53:03.865Z",
+      "sha256": "fe9d1e8aac6478caab948032ea8594a1dd10df9a29c2500d4de14104007177ba",
+      "inputLines": 87144,
+      "outputRules": 72620,
+      "outputBytes": 8877783
+    },
+    "trackers": {
+      "name": "EasyPrivacy",
+      "url": "https://easylist.to/easylist/easyprivacy.txt",
+      "fetchedFrom": "https://raw.githubusercontent.com/easylist/easylist/gh-pages/easyprivacy.txt",
+      "fetchedAt": "2026-08-08T08:53:05.335Z",
+      "sha256": "f8ebdcfaafafc5212506dd6a4104d51d205d833398b24497dfd1e5cb50ba4963",
+      "inputLines": 56457,
+      "outputRules": 55621,
+      "outputBytes": 6511137
+    },
+    "annoyances": {
+      "name": "Fanboy's Annoyance List (includes EasyList Cookie)",
+      "url": "https://secure.fanboy.co.nz/fanboy-annoyance.txt",
+      "fetchedFrom": "https://raw.githubusercontent.com/easylist/easylist/gh-pages/fanboy-annoyance.txt",
+      "fetchedAt": "2026-08-08T08:53:06.157Z",
+      "sha256": "c7153e4c05aca90daf153fb030ff2f3b6cc8879ebc1f4bf7245431a146f8229d",
+      "inputLines": 50242,
+      "outputRules": 21124,
+      "outputBytes": 3698061
+    }
+  }
+}
