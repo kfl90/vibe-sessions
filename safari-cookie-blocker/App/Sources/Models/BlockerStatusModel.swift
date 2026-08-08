@@ -51,7 +51,8 @@ final class BlockerStatusModel: ObservableObject {
     func refreshStates() async {
         for blocker in BlockerID.allCases {
             do {
-                states[blocker] = try await stateOfBlocker(blocker) ? .enabled : .disabled
+                let isEnabled = try await stateOfBlocker(blocker)
+                states[blocker] = isEnabled ? .enabled : .disabled
             } catch {
                 states[blocker] = .error(error.localizedDescription)
             }

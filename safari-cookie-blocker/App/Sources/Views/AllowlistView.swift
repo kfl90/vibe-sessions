@@ -37,8 +37,9 @@ struct AllowlistView: View {
                         Text(domain)
                     }
                     .onDelete { offsets in
-                        for index in offsets {
-                            allowlist.remove(allowlist.domains[index])
+                        // Resolve names up front: each removal reindexes the array.
+                        for domain in offsets.map({ allowlist.domains[$0] }) {
+                            allowlist.remove(domain)
                         }
                         Task { await status.reloadAll() }
                     }

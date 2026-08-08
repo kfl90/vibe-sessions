@@ -1,5 +1,4 @@
 import Foundation
-import UniformTypeIdentifiers
 
 /// Shared by all three content-blocker extensions: the same source file is
 /// compiled into each appex module, and the category is derived from the
